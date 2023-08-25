@@ -14,6 +14,17 @@ spec:
         app: my-app-1
         version: v1
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: 'app'
+                    operator: In
+                    values:
+                      - my-app-1
+                      - my-app-2
+              topologyKey: 'topology.kubernetes.io/zone'
       containers:
         - name: container
           image: arenchill/videoapp:latest
@@ -36,8 +47,19 @@ spec:
         app: my-app-2
         version: v2
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: 'app'
+                    operator: In
+                    values:
+                      - my-app-1
+                      - my-app-2
+              topologyKey: 'topology.kubernetes.io/zone'
       containers:
-        - name: my-container
+        - name: container
           image: arenchill/videoapp:latest
           ports:
             - containerPort: 8080
