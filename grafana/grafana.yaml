@@ -22,6 +22,9 @@ spec:
       containers:
         - name: grafana
           image: grafana/grafana:latest
+          env:
+          - name: GF_SERVER_HTTP_PORT
+            value: "3333"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3333
